@@ -1,0 +1,51 @@
+{
+  "name": "di-react-rxjs",
+  "version": "0.0.1",
+  "description": "Experemental use di and rxjs with react library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config webpack/webpack.config.js --open --mode development",
+    "build": "webpack --config webpack/webpack.config.js --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/only-exlight/di-react-rxjs.git"
+  },
+  "keywords": [
+    "react",
+    "js",
+    "di",
+    "rxjs"
+  ],
+  "author": "only-exlight",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/only-exlight/di-react-rxjs/issues"
+  },
+  "homepage": "https://github.com/only-exlight/di-react-rxjs#readme",
+  "dependencies": {
+    "@reactivex/rxjs": "^6.5.2",
+    "inversify": "^5.0.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.2"
+  },
+  "devDependencies": {
+    "@types/inversify": "^2.0.33",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@types/reflect-metadata": "^0.1.0",
+    "copy-webpack-plugin": "^4.5.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^3.2.0",
+    "ts-loader": "^5.2.1",
+    "tslint": "^5.11.0",
+    "tslint-loader": "^3.6.0",
+    "typescript": "^3.1.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  }
+}
