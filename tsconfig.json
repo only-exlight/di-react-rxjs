@@ -8,18 +8,17 @@
         "noImplicitUseStrict": true,
         "sourceMap": true,
         "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "jsx": "react",
+        "lib": ["es6", "dom", "es2015.reflect"],
         "types": [
             "react",
-            "react-dom"
+            "react-dom",
+            "reflect-metadata"
         ],
         "moduleResolution": "node"
     },
     "include": [
         "./src/**/*",
-        "./lib/**/*"
-    ],
-    "exclude": [
-        "**/*.spec.ts"
     ]
 }

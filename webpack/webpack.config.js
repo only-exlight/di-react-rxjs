@@ -5,13 +5,14 @@ const getPlugins = require('./webpack.plugins');
 const getMode = require('./webpack.modes');
 const BUILD_FOOLDER = require('./webpack.const').BUILD_FOOLDER;
 
-module.exports = (env, argv) => {
+module.exports = (_, argv) => {
+    console.warn(__dirname.split('/').slice(0, -1).join('/'), __dirname);
     const isProd = getMode(argv.mode);
     rmrf.sync(BUILD_FOOLDER);
     return {
-        entry: './src/index.ts',
+        entry: './src/main.tsx',
         output: {
-            path: __dirname + BUILD_FOOLDER,
+            path: __dirname.split('/').slice(0, -1).join('/') + BUILD_FOOLDER,
             filename: '[name].[hash].bundle.js',
         },
         resolve: {
