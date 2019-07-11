@@ -1,13 +1,12 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin');
-const webpack = require('webpack');
+import { DefinePlugin } from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { BaseHrefWebpackPlugin } from 'base-href-webpack-plugin'
 
-    
-const getPlugins = (mode, domain) => {
+export const getPlugins = (mode, domain) => {
     const plugins = [
-        new webpack.DefinePlugin({
+        new DefinePlugin({
             'API_URL': JSON.stringify(domain),
             'process.env': {
                 NODE_ENV: JSON.stringify('production')
@@ -34,9 +33,7 @@ const getPlugins = (mode, domain) => {
                 to: './favicon.ico'
             }
         ]),
-        new ExtractTextPlugin('style.[hash].css'),
+        new ExtractTextPlugin('style.css'),
     ];
     return plugins;
 };
-
-module.exports = getPlugins;

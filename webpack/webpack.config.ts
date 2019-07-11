@@ -1,14 +1,13 @@
-const rmrf = require('rimraf');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+import { sync } from 'rimraf';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import { BUILD_FOOLDER } from './webpack.const';
+import { getPlugins } from './webpack.plugins';
+import { chooseMode as getMode } from './webpack.modes';
 
-const getPlugins = require('./webpack.plugins');
-const getMode = require('./webpack.modes');
-const BUILD_FOOLDER = require('./webpack.const').BUILD_FOOLDER;
-
-module.exports = (_, argv) => {
+export default (_, argv) => {
     console.warn(__dirname.split('/').slice(0, -1).join('/'), __dirname);
     const isProd = getMode(argv.mode);
-    rmrf.sync(BUILD_FOOLDER);
+    sync(BUILD_FOOLDER);
     return {
         entry: './src/main.tsx',
         output: {
@@ -30,14 +29,14 @@ module.exports = (_, argv) => {
                 loader: 'ts-loader'
             }, {
                 test: /\.(scss|css)$/,
-                use: ExtractTextPlugin.extract({
+                loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [{
                         loader: 'css-loader',
                         options: {
                             minimize: isProd,
                             sourceMap: isProd,
-                            url: true
+                            url: true,
                         }
                     }, {
                         loader: 'sass-loader',
