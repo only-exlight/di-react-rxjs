@@ -4,25 +4,24 @@ import { ITestService } from '../services/test.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import Card from '@material-ui/core/Card';
-import { ChatInput } from './chat-input';
 
-interface ITest2Props { }
+interface ITest2Props {}
 interface ITest2State {
     text: string;
 }
 
-export class TestComponent2 extends React.Component<ITest2Props, ITest2State> {
+export class ChatInput extends React.Component<ITest2Props, ITest2State> {
     public state: ITest2State;
     @lazyInject(TYPES.TestService) private testSrv: ITestService;
     private subscriber = new Subject();
 
-    constructor(props: ITest2Props, state: ITest2State) {
+    constructor(props:ITest2Props, state: ITest2State) {
         super(props, state);
         this.state = {
             text: ''
         }
         this.testSrv.$shareText.pipe(takeUntil(this.subscriber))
-            .subscribe(text => this.setState({ text }));
+            .subscribe(text => this.setState({text}));
     }
 
     componentWillUnmount() {
@@ -32,12 +31,9 @@ export class TestComponent2 extends React.Component<ITest2Props, ITest2State> {
 
     render() {
         return (
-            <React.Fragment>
-                <Card>
-
-                </Card>
-                <ChatInput />
-            </React.Fragment>
+            <Card>
+                
+            </Card>
         )
     }
 }

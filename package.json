@@ -26,14 +26,19 @@
   "homepage": "https://github.com/only-exlight/di-react-rxjs#readme",
   "dependencies": {
     "@material-ui/core": "^4.2.0",
+    "@material-ui/icons": "^4.2.1",
+    "@material-ui/styles": "^4.2.0",
     "@reactivex/rxjs": "^6.5.2",
     "inversify": "^5.0.1",
     "inversify-inject-decorators": "^3.1.0",
     "randomstring": "^1.1.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.2",
+    "un": "0.0.0",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@types/copy-webpack-plugin": "^5.0.0",
@@ -45,10 +50,12 @@
     "@types/randomstring": "^1.1.6",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
+    "@types/react-router-dom": "^4.3.4",
     "@types/reflect-metadata": "^0.1.0",
     "@types/rimraf": "^2.0.2",
     "@types/webpack": "^4.4.34",
     "@types/webpack-dev-server": "^3.1.7",
+    "@types/yup": "^0.26.21",
     "base-href-webpack-plugin": "^2.0.0",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^3.0.0",
