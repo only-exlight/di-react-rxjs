@@ -1,8 +1,8 @@
-import { TestComponent2 } from './components/test2.component';
+import { ChatPage } from './pages/chat/chat.page';
 
 export const ROUTES = [{
     path: '/chat',
-    component: TestComponent2
+    component: ChatPage
 }, {
     path: '/login',
     component: null

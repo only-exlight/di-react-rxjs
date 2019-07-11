@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { TYPES, lazyInject } from '../di-config';
-import { ITestService } from '../services/test.service';
+import { TYPES, lazyInject } from '../../di-config';
+import { ITestService } from '../../services/test.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import Card from '@material-ui/core/Card';
-import { ChatInput } from './chat-input';
+import './chat-history.scss';
 
 interface ITest2Props { }
 interface ITest2State {
     text: string;
 }
 
-export class TestComponent2 extends React.Component<ITest2Props, ITest2State> {
+export class ChatHistory extends React.Component<ITest2Props, ITest2State> {
     public state: ITest2State;
     @lazyInject(TYPES.TestService) private testSrv: ITestService;
     private subscriber = new Subject();
@@ -32,12 +32,9 @@ export class TestComponent2 extends React.Component<ITest2Props, ITest2State> {
 
     render() {
         return (
-            <React.Fragment>
-                <Card>
-
-                </Card>
-                <ChatInput />
-            </React.Fragment>
+            <Card>
+                <div className="history"></div>
+            </Card>
         )
     }
 }
