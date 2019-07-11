@@ -1,8 +1,8 @@
 import { DefinePlugin } from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { BaseHrefWebpackPlugin } from 'base-href-webpack-plugin'
+import { BaseHrefWebpackPlugin } from 'base-href-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export const getPlugins = (mode, domain) => {
     const plugins = [
@@ -20,20 +20,23 @@ export const getPlugins = (mode, domain) => {
         new BaseHrefWebpackPlugin({
             baseHref: '/'
         }),
-        new CopyWebpackPlugin([/*{
+        new CopyWebpackPlugin([{
                 from: './src/assets',
                 to: './build/[name].[ext]'
             },
             {
                 from: './src/assets/fonts',
                 to: './build/fonts/[name].[ext]'
-            },*/
+            },
             {
                 from: './src/favicon.ico',
                 to: './favicon.ico'
             }
         ]),
-        new ExtractTextPlugin('style.css'),
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash].css',
+            chunkFilename: '[id].css',
+          }),
     ];
     return plugins;
 };

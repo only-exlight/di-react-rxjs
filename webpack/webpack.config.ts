@@ -1,21 +1,23 @@
 import { sync } from 'rimraf';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import { BUILD_FOOLDER } from './webpack.const';
+import { BUILD_FOOLDER, DEVELOPMENT } from './webpack.const';
 import { getPlugins } from './webpack.plugins';
 import { chooseMode as getMode } from './webpack.modes';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export default (_, argv) => {
-    console.warn(__dirname.split('/').slice(0, -1).join('/'), __dirname);
     const isProd = getMode(argv.mode);
-    sync(BUILD_FOOLDER);
+    sync(__dirname.split('/').slice(0, -1).join('/') + BUILD_FOOLDER);
     return {
-        entry: './src/main.tsx',
+        entry: {
+            main: './src/main.tsx',
+            // style: './src/styles.scss'
+        },
         output: {
             path: __dirname.split('/').slice(0, -1).join('/') + BUILD_FOOLDER,
-            filename: '[name].[hash].bundle.js',
+            filename: '[name].[hash].js',
         },
         resolve: {
-            extensions: ['.ts', '.js', '.tsx', '.jsx','.json', ]
+            extensions: ['.ts', '.js', '.tsx', '.jsx','.json', 'scss', 'css' ]
         },
         module: {
             rules: [{
@@ -29,22 +31,12 @@ export default (_, argv) => {
                 loader: 'ts-loader'
             }, {
                 test: /\.(scss|css)$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            minimize: isProd,
-                            sourceMap: isProd,
-                            url: true,
-                        }
-                    }, {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: isProd
-                        }
-                    }]
-                })
+                use: [{
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        hmr: process.env.NODE_ENV === DEVELOPMENT,
+                    }
+                }, 'css-loader', 'sass-loader']
             }]
         },
         plugins: getPlugins(isProd, null),
