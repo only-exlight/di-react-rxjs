@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import { DOMAIN } from '../const/env';
 import { Observable, fromEvent } from 'rxjs';
 import { IMessage, Message } from '../models/message.model';
+import { map } from 'rxjs/operators';
 
 @injectable()
 export class SoketService {
@@ -10,8 +11,8 @@ export class SoketService {
     public errors$ = new Observable<any>();
 
     public connect() {
-        this.ws = new WebSocket(DOMAIN);
-        this.messages$ = fromEvent<IMessage>(this.ws, 'message');
+        this.ws = new WebSocket(`ws://${DOMAIN}`);
+        this.messages$ = fromEvent<IMessage>(this.ws, 'message').pipe(map((e: any) => JSON.parse(e.data)));
         this.errors$ = fromEvent(this.ws, 'error');
     }
 
@@ -26,6 +27,6 @@ export class SoketService {
     }
 
     private serealize(msg: Message)  {
-        return JSON.stringify(msg.toJSON);
+        return JSON.stringify(msg.toJSON());
     }
 }

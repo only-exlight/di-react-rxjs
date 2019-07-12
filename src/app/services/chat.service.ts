@@ -5,16 +5,27 @@ import { Message } from '../models/message.model';
 import { TYPES } from '../types';
 import { UserService } from './user.serivce';
 import { User } from '../models/user.model';
+import { SoketService } from './soket.service';
 
 @injectable()
 export class ChatService {
     @inject(TYPES.ApiService) private apiService: ApiService;
+    
     private msgHistory: Message[] = [];
     private user: User;
     private msgHistory$ = new BehaviorSubject<Message[]>([]);
 
-    constructor(@inject(TYPES.UserService) private userService: UserService) {
+    constructor(
+        @inject(TYPES.UserService) private userService: UserService,
+        @inject(TYPES.SoketService) private socketSrv: SoketService
+    ) {
         this.userService.$user.subscribe(u => this.user = u);
+        this.socketSrv.messages$.subscribe(msg  => {
+            console.warn(msg, '!');
+            const message = new Message(msg)
+            this.msgHistory.push(message);
+            this.msgHistory$.next(this.msgHistory);
+        })
     }
 
     get $history(): Observable<Message[]> {
@@ -22,11 +33,13 @@ export class ChatService {
     }
 
     public sendMessage(msg: string) {
-        this.msgHistory.push(new Message({
+        const message = new Message({
             body: msg,
             sender: this.user.nickname,
             date: new Date()
-        }));
+        });
+        this.msgHistory.push(message);
+        this.socketSrv.send(message);
         this.msgHistory$.next(this.msgHistory);
     }
 
