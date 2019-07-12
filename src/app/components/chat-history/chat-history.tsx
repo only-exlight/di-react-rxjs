@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { TYPES, lazyInject } from '../../di-config';
-import { ITestService } from '../../services/test.service';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import Card from '@material-ui/core/Card';
+import { ChatService } from '../../services/chat.service';
 import './chat-history.scss';
 
 interface ITest2Props { }
@@ -13,7 +12,7 @@ interface ITest2State {
 
 export class ChatHistory extends React.Component<ITest2Props, ITest2State> {
     public state: ITest2State;
-    @lazyInject(TYPES.TestService) private testSrv: ITestService;
+    @lazyInject(TYPES.ChatService) private chatSrv: ChatService;
     private subscriber = new Subject();
 
     constructor(props: ITest2Props, state: ITest2State) {
@@ -21,8 +20,6 @@ export class ChatHistory extends React.Component<ITest2Props, ITest2State> {
         this.state = {
             text: ''
         }
-        this.testSrv.$shareText.pipe(takeUntil(this.subscriber))
-            .subscribe(text => this.setState({ text }));
     }
 
     componentWillUnmount() {

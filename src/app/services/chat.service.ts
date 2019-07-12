@@ -16,5 +16,11 @@ export class ChatService {
         return this.msgHistory$.asObservable();
     }
 
-    public sendMessage(msg: string) { }
+    public sendMessage(msg: string) {
+        console.warn(msg);
+    }
+
+    public writeMessage() {
+        console.warn('!');
+    }
 }
