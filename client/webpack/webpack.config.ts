@@ -12,12 +12,22 @@ export default (_, argv) => {
             main: './src/main.tsx',
             // style: './src/styles.scss'
         },
+        stats: {
+            all: false,
+            modules: true,
+            maxModules: 6,
+            errors: true,
+            warnings: true,
+            moduleTrace: true,
+            errorDetails: true,
+            modulesSort: 'name'
+        },
         output: {
             path: __dirname.split('/').slice(0, -1).join('/') + BUILD_FOOLDER,
             filename: '[name].[hash].js',
         },
         resolve: {
-            extensions: ['.ts', '.js', '.tsx', '.jsx','.json', 'scss', 'css' ]
+            extensions: ['.ts', '.js', '.tsx', '.jsx', '.json', 'scss', 'css']
         },
         module: {
             rules: [{
@@ -57,6 +67,10 @@ export default (_, argv) => {
         },
         devtool: isProd ? false : 'source-map',
         devServer: {
+            open: false,
+            overlay: {
+                errors: true
+            },
             https: true,
             host: '0.0.0.0',
             inline: true,

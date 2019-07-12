@@ -17,10 +17,10 @@ export class Application extends React.Component<IApplicationState, IApplication
             <BrowserRouter>
                 <AppBar position="static">
                     <Toolbar>
-                        <Link to="chat">
+                        <Link to="/chat">
                             <Button color="inherit">Chat</Button>
                         </Link>
-                        <Link to="login">
+                        <Link to="/">
                             <Button color="inherit">Login</Button>
                         </Link>
                     </Toolbar>
@@ -28,7 +28,7 @@ export class Application extends React.Component<IApplicationState, IApplication
                 <Container maxWidth="sm">
                     {
                         ROUTES.map(r => (
-                            <Route path={r.path} component={r.component} />
+                            <Route exact={r.exact} path={r.path} component={r.component} />
                         ))
                     }
                 </Container>

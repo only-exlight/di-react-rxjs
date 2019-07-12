@@ -6,11 +6,12 @@ import { TYPES } from '../types';
 import { UserService } from './user.serivce';
 import { User } from '../models/user.model';
 import { SoketService } from './soket.service';
+import { map } from 'rxjs/operators';
 
 @injectable()
 export class ChatService {
     @inject(TYPES.ApiService) private apiService: ApiService;
-    
+
     private msgHistory: Message[] = [];
     private user: User;
     private msgHistory$ = new BehaviorSubject<Message[]>([]);
@@ -20,12 +21,12 @@ export class ChatService {
         @inject(TYPES.SoketService) private socketSrv: SoketService
     ) {
         this.userService.$user.subscribe(u => this.user = u);
-        this.socketSrv.messages$.subscribe(msg  => {
-            console.warn(msg, '!');
+        this.socketSrv.$messages.subscribe(msg  => {
             const message = new Message(msg)
             this.msgHistory.push(message);
             this.msgHistory$.next(this.msgHistory);
-        })
+        });
+        this.socketSrv.$errors.subscribe(err => console.error(err));
     }
 
     get $history(): Observable<Message[]> {

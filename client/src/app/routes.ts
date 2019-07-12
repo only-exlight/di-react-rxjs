@@ -5,6 +5,7 @@ export const ROUTES = [{
     path: '/chat',
     component: ChatPage
 }, {
-    path: '/login',
+    path: '/',
+    exact: true,
     component: LoginPage
 }];
