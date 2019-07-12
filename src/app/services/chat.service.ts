@@ -1,8 +1,8 @@
 import { injectable, inject } from 'inversify';
-import { TYPES } from '../di-config';
 import { ApiService } from './api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Message } from '../models/message.model';
+import { TYPES } from '../types';
 
 @injectable()
 export class ChatService {

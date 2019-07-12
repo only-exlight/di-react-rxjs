@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { TYPES, lazyInject } from '../../di-config';
+import { lazyInject } from '../../di-config';
 import { Subject } from 'rxjs';
 import Card from '@material-ui/core/Card';
 import { ChatService } from '../../services/chat.service';
 import './chat-history.scss';
+import { TYPES } from '../../types';
 
 interface ITest2Props { }
 interface ITest2State {

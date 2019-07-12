@@ -2,10 +2,11 @@ import * as React from 'react';
 import { Subject } from 'rxjs';
 import Card from '@material-ui/core/Card';
 import { InputAdornment, IconButton, Input, FormControl, InputLabel } from '@material-ui/core';
+import { ChatService } from '../../services/chat.service';
+import { lazyInject } from '../../di-config';
+import { TYPES } from '../../types';
 import { Send } from '@material-ui/icons';
 import './chat-input.scss';
-import { ChatService } from '../../services/chat.service';
-import { lazyInject, TYPES } from '../../di-config';
 
 interface IChatInputProps { }
 interface IChatInputState {
