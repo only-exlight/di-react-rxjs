@@ -1,2 +1,3 @@
 # di-react-rxjs
-Experemental use di and rxjs with react library
+
+Прототипчик приложения чата на TypeScript c использованием библиотеки React, DI контейнера Inversify, и библиотеки RxJS. Без использования Redux и его производных.
