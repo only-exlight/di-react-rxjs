@@ -32,6 +32,7 @@ export class ChatInput extends React.Component<IChatInputProps, IChatInputState>
 
     sendMsg(msg: string) {
         this.chatService.sendMessage(msg);
+        this.setState({ message: '' });
     }
 
     enterMessage(e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -41,7 +42,6 @@ export class ChatInput extends React.Component<IChatInputProps, IChatInputState>
     }
 
     writeMsg(message: string) {
-        console.warn(this);
         this.setState({message});
         this.chatService.writeMessage();
     }
@@ -54,6 +54,7 @@ export class ChatInput extends React.Component<IChatInputProps, IChatInputState>
                         <InputLabel htmlFor="adornment-password">Enter your message</InputLabel>
                         <Input
                             type="text"
+                            value={this.state.message}
                             onKeyDown={(e) => this.enterMessage(e)}
                             onChange={(e) => this.writeMsg(e.target.value)}
                             endAdornment={

@@ -18,6 +18,12 @@ export class ChatService {
 
     public sendMessage(msg: string) {
         console.warn(msg);
+        this.msgHistory.push(new Message({
+            body: msg,
+            sender: 'Nekto',
+            date: new Date()
+        }));
+        this.msgHistory$.next(this.msgHistory);
     }
 
     public writeMessage() {

@@ -8,10 +8,10 @@ import { TYPES } from './types';
 
 const DI = new Container();
 
-DI.bind<ApiService>(TYPES.ApiService).to(ApiService);
-DI.bind<ChatService>(TYPES.ChatService).to(ChatService);
-DI.bind<UserService>(TYPES.UserService).to(UserService);
-DI.bind<SoketService>(TYPES.SoketService).to(SoketService);
+DI.bind<ApiService>(TYPES.ApiService).to(ApiService).inSingletonScope();
+DI.bind<ChatService>(TYPES.ChatService).to(ChatService).inSingletonScope();
+DI.bind<UserService>(TYPES.UserService).to(UserService).inSingletonScope();
+DI.bind<SoketService>(TYPES.SoketService).to(SoketService).inSingletonScope();
 
 export { DI }
 export const { lazyInject, lazyInjectNamed, lazyInjectTagged } = getDecorators(DI);
