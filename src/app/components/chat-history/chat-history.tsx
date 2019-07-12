@@ -5,8 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Card } from '@material-ui/core';
 import { ChatService } from '../../services/chat.service';
 import { TYPES } from '../../types';
-import './chat-history.scss';
 import { Message } from '../../models/message.model';
+import './chat-history.scss';
 
 interface ITest2Props { }
 interface ITest2State {

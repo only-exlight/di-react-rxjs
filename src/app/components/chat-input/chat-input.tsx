@@ -1,28 +1,42 @@
 import * as React from 'react';
-import { Subject } from 'rxjs';
 import Card from '@material-ui/core/Card';
 import { InputAdornment, IconButton, Input, FormControl, InputLabel } from '@material-ui/core';
 import { ChatService } from '../../services/chat.service';
 import { lazyInject } from '../../di-config';
 import { TYPES } from '../../types';
 import { Send } from '@material-ui/icons';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { UserService } from '../../services/user.serivce';
 import './chat-input.scss';
 
 interface IChatInputProps { }
 interface IChatInputState {
     message: string;
+    user: string;
 }
 
 export class ChatInput extends React.Component<IChatInputProps, IChatInputState> {
     public state: IChatInputState;
     private subscriber = new Subject();
     @lazyInject(TYPES.ChatService) private chatService: ChatService;
+    @lazyInject(TYPES.UserService) private userService: UserService;
 
     constructor(props: IChatInputProps, state: IChatInputState) {
         super(props, state);
         this.state = {
-            message: ''
+            message: '',
+            user: null
         }
+    }
+
+    componentWillMount() {
+        this.userService.$user.pipe(takeUntil(this.subscriber))
+            .subscribe(user => {
+                if (user) {
+                    this.setState({ user: user.nickname });
+                }
+            });
     }
 
     componentWillUnmount() {
@@ -54,13 +68,14 @@ export class ChatInput extends React.Component<IChatInputProps, IChatInputState>
                         <InputLabel htmlFor="adornment-password">Enter your message</InputLabel>
                         <Input
                             type="text"
+                            disabled={!this.state.user}
                             value={this.state.message}
                             onKeyDown={(e) => this.enterMessage(e)}
                             onChange={(e) => this.writeMsg(e.target.value)}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton edge="end" aria-label="Send message"
-                                        onClick={(e) => this.sendMsg(this.state.message)}
+                                        onClick={() => this.sendMsg(this.state.message)}
                                     >
                                         <Send />
                                     </IconButton>

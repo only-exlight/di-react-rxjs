@@ -1,0 +1,17 @@
+.login {
+    width: 400px;
+    .login-head {
+        margin: 1rem;
+    }
+    .login-body {
+        margin: 1rem;
+        .nickname-input {
+            width: 100%;
+        }
+    }
+    .login-footer {
+        margin: 1rem;
+        display: flex;
+        justify-content: center;
+    }
+}

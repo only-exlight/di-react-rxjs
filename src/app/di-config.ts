@@ -15,5 +15,3 @@ DI.bind<SoketService>(TYPES.SoketService).to(SoketService).inSingletonScope();
 
 export { DI }
 export const { lazyInject, lazyInjectNamed, lazyInjectTagged } = getDecorators(DI);
-
-console.warn('!!');
